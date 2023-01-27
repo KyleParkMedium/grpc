@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option go_package = "./bidirection";
+
+package test;
+
+service TestGRPC {
+  rpc Send(Req) returns (Res);
+  rpc Recv(Res) returns (Req);
+}
+
+message Req { string req = 1; }
+
+message Res { string res = 1; }

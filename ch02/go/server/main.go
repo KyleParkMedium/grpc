@@ -7,6 +7,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net"
 
@@ -31,6 +32,11 @@ type server struct {
 func (s *server) AddProduct(ctx context.Context,
 	in *pb.Product) (*pb.ProductID, error) {
 	out, err := uuid.NewV4()
+	fmt.Println("hi")
+	fmt.Println(out)
+	fmt.Println(out.String)
+	fmt.Println(in)
+	fmt.Println(ctx)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "Error while generating Product ID", err)
 	}
@@ -45,6 +51,8 @@ func (s *server) AddProduct(ctx context.Context,
 
 // GetProduct implements ecommerce.GetProduct
 func (s *server) GetProduct(ctx context.Context, in *pb.ProductID) (*pb.Product, error) {
+	fmt.Println("herre")
+	fmt.Println(s.productMap)
 	product, exists := s.productMap[in.Value]
 	if exists && product != nil {
 		log.Printf("Product %v : %v - Retrieved.", product.Id, product.Name)
